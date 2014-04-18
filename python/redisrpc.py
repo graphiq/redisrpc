@@ -138,10 +138,17 @@ class Server(object):
             logging.debug('RPC Request: %s' % message)
             rpc_request = json.loads(message)
             response_queue = rpc_request['response_queue']
-            function_call = FunctionCall.from_dict(rpc_request['function_call'])
-            code = 'return_value = self.local_object.' + function_call.as_python_code()
             try:
-                exec(code)
+                args = rpc_request['function_call'].get('args')
+                kwargs = rpc_request['function_call'].get('kwargs')
+                if(kwargs is not None and args is not None):
+                    return_value = getattr(self.local_object, rpc_request['function_call']['name'])(*args, **kwargs)
+                elif(kwargs is not None):
+                    return_value = getattr(self.local_object, rpc_request['function_call']['name'])(**kwargs)
+                elif(args is not None):
+                    return_value = getattr(self.local_object, rpc_request['function_call']['name'])(*args)
+                else:
+                    return_value = getattr(self.local_object, rpc_request['function_call']['name'])()
                 rpc_response = dict(return_value=return_value)
             except:
                 (type, value, traceback) = sys.exc_info()

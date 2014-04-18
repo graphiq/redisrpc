@@ -19,7 +19,7 @@ logging.basicConfig(stream=sys.stderr, level=logging.DEBUG)
 
 def do_calculations(calculator):
     calculator.clr()
-    calculator.add(5)
+    calculator.add(number=5)
     calculator.sub(3)
     calculator.mul(4)
     calculator.div(2)
@@ -29,6 +29,10 @@ def do_calculations(calculator):
         assert False
     except (AttributeError, redisrpc.RemoteException):
         pass
+    print "returned: " + calculator.echo("TEST")
+    print "returned: " + calculator.echo(echostr="Keyword arg TEST")
+    res = calculator.echo_sum("one", echostr2="two")
+    assert res == "onetwo"
 
 
 # 1. Local object

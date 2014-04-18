@@ -28,3 +28,10 @@ class Calculator(object):
 
     def val(self):
         return self.acc
+
+    def echo(self,echostr):
+        return echostr
+
+    def echo_sum(self,echostr1,echostr2):
+        return str(echostr1) + str(echostr2)
+
