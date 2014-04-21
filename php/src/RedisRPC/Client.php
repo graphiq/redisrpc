@@ -16,8 +16,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 namespace RedisRPC;
-
-use RedisRPC\RemoteException;
+require_once dirname(__FILE__) . '/RemoteException.php';
 
 # Ref: http://www.php.net/manual/en/language.constants.php
 if (!function_exists("debug_print")) { 
