@@ -17,6 +17,7 @@
 
 namespace RedisRPC;
 require_once dirname(__FILE__) . '/RemoteException.php';
+require_once dirname(__FILE__) . '/TimeoutException.php';
 
 # Ref: http://www.php.net/manual/en/language.constants.php
 if (!function_exists("debug_print")) { 
